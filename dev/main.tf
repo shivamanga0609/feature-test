@@ -1,7 +1,10 @@
+#Creating Resource group name : Dev-Terraform-rg
+
 resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
   location = var.resource_group_location
 }
+#Creating virtual network : Dev-Terraform-vnet
 
 resource "azurerm_virtual_network" "virtual_network" {
   name                = var.virtual_network_name
@@ -10,6 +13,8 @@ resource "azurerm_virtual_network" "virtual_network" {
   resource_group_name = azurerm_resource_group.resource_group.name
 }
 
+#Creating subnet : Dev-Terraform-subnet
+
 resource "azurerm_subnet" "subnet" {
   name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.resource_group.name
@@ -17,22 +22,12 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_network_interface" "network_interface" {
-  name                = var.network_interface_name
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name
+#Creating Resource group name : Dev-Terraform-nsg 
 
-  ip_configuration {
-    name                          = "testconfiguration1"
-    subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Dynamic"
-  }
-}
 resource "azurerm_network_security_group" "network_security_group" {
-  name                = var.network_security_group_name
-  location            = azurerm_resource_group.resource_group.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-
+  name                       = var.network_security_group_name
+  location                   = azurerm_resource_group.resource_group.location
+  resource_group_name        = azurerm_resource_group.resource_group.name
   security_rule {
     name                       = "SSH"
     priority                   = 1001
@@ -45,6 +40,37 @@ resource "azurerm_network_security_group" "network_security_group" {
     destination_address_prefix = "*"
   }
 }
+# For creating Multiple Security rules, refer https://thomasthornton.cloud/2020/08/05/network-security-group-rule-creation-using-terraform/
+
+#Creating public IP  : Dev-publicip
+
+resource "azurerm_public_ip" "public_ip" {
+  name                       = var.public_ip_name
+  resource_group_name        = azurerm_resource_group.resource_group.name
+  location                   = azurerm_resource_group.resource_group.location
+  allocation_method          = "Static"
+
+  tags = {
+    environment = "Dev"
+  }
+}
+#Creating Resource group name : Dev-Terraform-nic
+
+resource "azurerm_network_interface" "network_interface" {
+  name                          = var.network_interface_name
+  location                      = azurerm_resource_group.resource_group.location
+  resource_group_name           = azurerm_resource_group.resource_group.name
+
+  ip_configuration {
+    name                          = "testconfiguration1"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.public_ip.id
+  }
+}
+
+#Creating virtual machine : Dev-Terraform-vm 
+
 resource "azurerm_virtual_machine" "virtual_machine" {
   name                  = var.virtual_machine_name
   location              = azurerm_resource_group.resource_group.location
@@ -76,10 +102,26 @@ resource "azurerm_virtual_machine" "virtual_machine" {
     environment = "dev"
   }
 }
-resource "azurerm_storage_account" "storage_account" {
-   name                     = var.storage_account_name
-   location                 = azurerm_resource_group.resource_group.location
-   resource_group_name      = azurerm_resource_group.resource_group.name
-   account_tier             = "Standard"
-   account_replication_type = "GRS"
+#Creating Inbound rule 22 : Dev-nic_nsg
+resource "azurerm_network_interface_security_group_association" "nic_nsg" {
+#  name                      = var.nic_nsg_name
+  network_interface_id      = azurerm_network_interface.network_interface.id
+  network_security_group_id = azurerm_network_security_group.network_security_group.id
 }
+#resource "azurerm_lb" "loadbalancer" {
+#  name                = var.loadbalancer_name
+#  location            = azurerm_resource_group.resource_group.location
+#  resource_group_name = azurerm_resource_group.resource_group.name
+
+#  frontend_ip_configuration {
+#    name                 = "PublicIPAddress"
+#    public_ip_address_id = azurerm_public_ip.public_ip.id
+#  }
+#}
+#resource "azurerm_storage_account" "storage_account" {
+#   name                     = var.storage_account_name
+#   location                 = azurerm_resource_group.resource_group.location
+#   resource_group_name      = azurerm_resource_group.resource_group.name
+#   account_tier             = "Standard"
+#   account_replication_type = "GRS"
+#}
