@@ -22,6 +22,15 @@ output "network_security_group_name" {
 output "virtual__machine_name" {
   value = azurerm_virtual_machine.virtual_machine.name
 }
-output "storage_account_name" {
-    value  = azurerm_storage_account.storage_account.name
+output "public_ip_name" {
+  value = azurerm_public_ip.public_ip.name
 }
+#output "nic_nsg" {
+#  value = azurerm_network_interface_security_group_association.nic_nsg.name
+#}
+#output "loadbalancer_name" {
+#  value = azurerm_lb.loadbalancer.name
+#}
+#output "storage_account_name" {
+#    value  = azurerm_storage_account.storage_account.name
+#}
