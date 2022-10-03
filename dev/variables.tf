@@ -22,11 +22,23 @@ variable network_security_group_name {
     default          = "dev-terraform-nsg" 
     description      = "Name of the NSG"
 }
+variable public_ip_name {
+    default          = "dev-public-ip"
+    description      = "Name of the public IP"
+}
+#variable loadbalancer_name {
+#    default          = "azurerm_lb.loadbalancer.name"
+#    description      = "Name of the loadbalancer"
+#}
 variable virtual_machine_name {
     default          = "dev-terraform-vm"
     description      = "Name of the VM"
 }
+variable  nic_nsg_name {
+    default          = "dev-nsg_inbound"
+    description      = "Name of the Inbound rule"
+}
 variable storage_account_name {
-    default          = "devstorageaccount"
+    default          = "devstorageaccountshiva"
     description      = "Name of the storage account"
 }
