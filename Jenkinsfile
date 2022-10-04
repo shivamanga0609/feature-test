@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('init&plan') { 
             steps {
+               pwd usr/local/bin/
                sh 'terraform init'
                sh 'terraform plan'
             }
