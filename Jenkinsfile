@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     stages {
-        stage('init&plan) { 
+        stage('init&plan') { 
             steps {
                terraform init
                terraform plan 
