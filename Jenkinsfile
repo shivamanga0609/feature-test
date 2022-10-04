@@ -3,13 +3,13 @@ pipeline {
     stages {
         stage('init&plan') { 
             steps {
-               terraform init
-               terraform plan 
+               sh 'terraform init'
+               sh 'terraform plan'
             }
         }
         stage('deploy') {
             steps {
-                terraform apply
+                sh 'terraform apply'
             }
         }
     }
