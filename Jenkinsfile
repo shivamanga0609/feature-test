@@ -8,7 +8,6 @@ pipeline {
         }
         stage('init&plan') { 
             steps {
-               checkout
                sh 'cd dev'
                sh 'terraform init'
                sh 'terraform plan'
