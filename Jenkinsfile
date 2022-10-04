@@ -7,7 +7,7 @@ pipeline {
                terraform plan 
             }
         }
-        stage(deploy') {
+        stage('deploy') {
             steps {
                 terraform apply
             }
