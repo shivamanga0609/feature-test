@@ -23,37 +23,39 @@
  //   }
 //}
 
-pipeline {
+pipeline{
     agent any
     tools {
-       terraform 'terraform'
+        terraform 'terraform'
     }
-    stages {
-        stage('Git checkout') {
-           steps{
-                git branch: 'terraform-vm', url: 'https://github.com/shivamanga0609/feature-test'
+     stages{
+        stage('Git Checkout'){
+            steps{
+                git branch: 'main', credentialsId: 'gitlab id', url: 'https://gitlab.com/ndey1/kafka-infra'
             }
         }
-        stage('terraform format check') {
+        
+        stage('Terraform init'){
             steps{
-                sh 'terraform fmt'
-            }
-        }
-        stage('terraform Init') {
-            steps{
+             dir("terraform-aws-ec2-with-vpc") {
                 sh 'terraform init'
             }
-        }
-        stage('terraform apply') {
+         }
+       }
+        
+        stage('Terraform plan'){
             steps{
+             dir("terraform-aws-ec2-with-vpc") {
+                sh 'terraform plan'
+            }
+         }
+       } 
+        stage('Terraform apply'){
+            steps{
+             dir("terraform-aws-ec2-with-vpc") {
                 sh 'terraform apply --auto-approve'
-                 dir('terraform') {
-                  terraform init
-                  terraform apply --auto-approve
-              }
             }
         }
     }
-
-    
+  }
 }
