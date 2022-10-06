@@ -31,7 +31,7 @@ pipeline{
      stages{
         stage('Git Checkout'){
             steps{
-                git branch: 'main', credentialsId: 'gitlab id', url: 'https://gitlab.com/ndey1/kafka-infra'
+                git branch: 'terraform-vm', url: 'https://github.com/shivamanga0609/feature-test'
             }
         }
         
