@@ -24,43 +24,32 @@
 //}
 
 pipeline {
- agent any
- 
- stages {
- stage(‘checkout’) {
- steps {
- git branch: ‘terraform-vm’, url: ‘git@https://github.com/shivamanga0609/feature-test’
- 
- }
- }
- stage(‘Set Terraform path’) {
- steps {
- script {
- def tfHome = tool name: ‘Terraform’
- env.PATH = “${tfHome}:${env.PATH}”
- }
- sh ‘terraform — version’
- 
- 
- }
- }
- 
- stage(‘Provision infrastructure’) {
- 
- steps {
- dir(‘dev’)
- {
- sh ‘terraform init’
- sh ‘terraform plan -out=plan’
- // sh ‘terraform destroy -auto-approve’
- sh ‘terraform apply plan’
- }
- 
- 
- }
- }
- 
- 
- 
- }
+    agent any
+    tools {
+       terraform 'terraform'
+    }
+    stages {
+        stage('Git checkout') {
+           steps{
+                git branch: 'terraform-vm', url: https://github.com/shivamanga0609/feature-test'
+            }
+        }
+        stage('terraform format check') {
+            steps{
+                sh 'terraform fmt'
+            }
+        }
+        stage('terraform Init') {
+            steps{
+                sh 'terraform init'
+            }
+        }
+        stage('terraform apply') {
+            steps{
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+
+    
 }
