@@ -31,7 +31,7 @@ pipeline {
     stages {
         stage('Git checkout') {
            steps{
-                git branch: 'terraform-vm', url:https://github.com/shivamanga0609/feature-test'
+                git branch: 'terraform-vm', credentialsId: 'Github', url: 'https://github.com/shivamanga0609/feature-test'
             }
         }
         stage('terraform format check') {
@@ -42,6 +42,11 @@ pipeline {
         stage('terraform Init') {
             steps{
                 sh 'terraform init'
+            }
+        }
+       stage('terraform plan') {
+            steps{
+                sh 'terraform plan'
             }
         }
         stage('terraform apply') {
