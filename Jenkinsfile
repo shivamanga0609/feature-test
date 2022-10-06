@@ -47,6 +47,10 @@ pipeline {
         stage('terraform apply') {
             steps{
                 sh 'terraform apply --auto-approve'
+                 dir('terraform') {
+                  terraform init
+                  terraform apply --auto-approve
+              }
             }
         }
     }
