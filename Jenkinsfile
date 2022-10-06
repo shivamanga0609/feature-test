@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage(‘Checkout’) {
             steps {
-                checkout([$class: ‘Git’, branches: [[name: ‘*/terraform-vm’]], extensions: [], userRemoteConfigs: [[url: ‘https://github.com/shivamanga0609/feature-test.git‘]]])
+                checkout([$class: ‘GitSCM’, branches: [[name: ‘*/terraform-vm’]], extensions: [], userRemoteConfigs: [[url: ‘https://github.com/shivamanga0609/feature-test.git‘]]])
             }
         }
         stage('init&plan') { 
