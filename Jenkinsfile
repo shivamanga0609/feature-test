@@ -1,61 +1,65 @@
-//pipeline {
-//   agent any 
- //   stages {
-//        stage(‘Checkout’) {
- //           steps {
-//                checkout([$class: ‘GitSCM’, branches: [[name: ‘*/terraform-vm’]], extensions: [], userRemoteConfigs: [[url: ‘https://github.com/shivamanga0609/feature-test.git‘]]])
- //           }
-//        }
-//        stage('init&plan') { 
-//            steps {
-//               dir("dev") {
-//                  sh "pwd"
-//                }
-//               sh 'terraform init'
- //              sh 'terraform plan'
- //           }
- //       }
- //       stage('deploy') {
- //           steps {
-//                sh 'terraform apply'
- //           }
- //       }
- //   }
-//}
+pipeline {
 
-pipeline{
     agent any
-    tools {
-        terraform 'terraform'
+
+    options {
+        ansiColor('xterm')
     }
-     stages{
-        stage('Git Checkout'){
-            steps{
-                git branch: 'terraform-vm', url: 'https://github.com/shivamanga0609/feature-test'
+
+    environment {
+        GIT_URL = "https://github.com/shivamanga0609/feature-test"
+    }
+
+    stages {
+
+        stage ("Checkout") {
+            steps {
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: 'terraform-vm']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_PAT_TOKEN', url: "${GIT_URL}"]]])
+                }
             }
         }
-        
-        stage('Terraform init'){
-            steps{
-             dir("terraform-aws-ec2-with-vpc") {
-                sh 'terraform init'
-            }
-         }
-       }
-        
-        stage('Terraform plan'){
-            steps{
-             dir("terraform-aws-ec2-with-vpc") {
-                sh 'terraform plan'
-            }
-         }
-       } 
-        stage('Terraform apply'){
-            steps{
-             dir("terraform-aws-ec2-with-vpc") {
-                sh 'terraform apply --auto-approve'
+
+        stage ("Init") {
+            steps {
+                script {
+                    sh """
+                        terraform init
+                    """
+                }
             }
         }
+
+        stage ("Plan") {
+            steps {
+                script {
+                    sh """
+                        terraform plan
+                    """
+                }
+            }
+        }   
+
+        stage ("Apply") {
+            steps {
+                script {
+                    sh """
+                        terraform apply --auto-approve
+                    """
+                }
+            }
+        }             
+
+        stage ("Destroy") {
+            steps {
+                script {
+                    sh """
+                        terraform destroy --auto-approve
+                    """
+                }
+            }
+        }
+
     }
-  }
+
 }
