@@ -1,5 +1,14 @@
 #Creating Resource group name : Dev-Terraform-rg
-
+locals {
+  Owner           = "shiva"
+  Reason          = "ticker-123"
+  Environment     = "Dev"
+  common_tags = {
+    Owner       = "Shiva"
+    Reason      = "ticker-123"
+    Environment = "Dev"
+  }
+}
 terraform {
   required_version = ">= 1.0.0"
   required_providers {
