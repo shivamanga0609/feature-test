@@ -37,27 +37,7 @@ pipeline {
                 }
             }
         }   
-
-        stage ("Apply") {
-            steps {
-                script {
-                    sh """
-                        terraform apply --auto-approve
-                    """
-                }
-            }
-        }             
-
-        stage ("Destroy") {
-            steps {
-                script {
-                    sh """
-                        terraform destroy --auto-approve
-                    """
-                }
-            }
-        }
-
     }
-
 }
+
+
