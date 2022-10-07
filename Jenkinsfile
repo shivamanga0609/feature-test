@@ -1,7 +1,5 @@
 pipeline {
-
     agent any
-
     options {
         ansiColor('xterm')
     }
@@ -15,7 +13,7 @@ pipeline {
         stage ("Checkout") {
             steps {
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: 'terraform-vm']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_PAT_TOKEN', url: "${GIT_URL}"]]])
+                    checkout([$class: 'GitSCM', branches: [[name: 'terraform-vm']], extensions: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])
                 }
             }
         }
