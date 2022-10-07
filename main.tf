@@ -14,7 +14,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "1.3.1"
+      version = "2.64.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -22,7 +22,6 @@ terraform {
     }
   }
 }
-
 
 resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
