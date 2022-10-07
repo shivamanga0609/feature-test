@@ -9,19 +9,19 @@ locals {
     Environment = "Dev"
   }
 }
-terraform {
-  required_version = ">= 1.0.0"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.64.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 3.0"
-    }
-  }
-}
+#terraform {
+#  required_version = ">= 1.0.0"
+#  required_providers {
+#    azurerm = {
+#      source  = "hashicorp/azurerm"
+#      version = "2.64.0"
+#    }
+#    random = {
+#      source  = "hashicorp/random"
+#      version = ">= 3.0"
+#    }
+#  }
+#}
 
 resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
