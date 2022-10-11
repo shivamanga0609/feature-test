@@ -1,0 +1,86 @@
+#############
+Gitlab version
+##############
+
+git --version
+
+
+#################
+Login from Gitlab CLI 
+#####################
+
+git config --global user.name "shivamanga"
+
+git config --global user.email "shiva.manga@care.ai
+
+####################
+settings and values
+##################
+
+git config --global --list
+
+
+#####################################
+create a demo folder and add to git 
+#####################################
+
+
+Create a location on a folder in the VM and run the following commands
+>>> Go to the location of the folder created 
+
+cd c:\users\administrator\desktop\projects\GitLab
+git init
+git status /// This will show which branch we are and if there are any commits 
+
+##############
+add file to git
+###############
+
+git add filename  or git add .
+
+##################
+commit the file
+##################
+
+git commit -m "my first commit"
+
+
+#########################
+push the file to git repo 
+#########################
+
+git push -u "Git URL" Branch name 
+
+git push -u "https://gitlab.com/shiva/Myfirstproject" master 
+
+
+
+
+###################
+How to fork a project
+#####################
+
+Fork is a copy of a project. Forking a project allows you to make chnages without affecting the original project 
+
+>>>> Go to your project in the gitlab UI 
+>>>> Go to your project 
+>>>> Click on the form button 
+
+
+
+########################
+Setup SSH key for GitLab
+##########################
+
+>>This is used for authentication 
+>>By setting SSH key you can connect to gitlab server without username and password 
+
+command  --ssh-keygen   //Run this command in gitbash 
+ssh keygen will be stored in the path 
+
+>>>Go to GitLab UI and go to settings> SSH keys>> add the content of a "id_rsa.pub" file in the Gitlab UI under "Key" box
+
+
+
+
+
