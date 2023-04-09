@@ -21,9 +21,9 @@ pipeline {
         stage ("Init") {
             steps {
                 script {
-                    sh """
+                   
                         terraform init
-                    """
+                   
                 }
             }
         }
@@ -31,9 +31,9 @@ pipeline {
         stage ("Plan") {
             steps {
                 script {
-                    sh """
+                    
                         terraform plan
-                    """
+                    
                 }
             }
         }   
