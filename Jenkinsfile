@@ -10,13 +10,13 @@ pipeline {
 
     stages {
 
-        stage ("Checkout") {
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: 'terraform-vm']], extensions: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])
-                }
-            }
-        }
+ //       stage ("Checkout") {
+//           steps {
+//                script {
+//                    checkout([$class: 'GitSCM', branches: [[name: 'terraform-vm']], extensions: [], userRemoteConfigs: [[url: "${GIT_URL}"]]])
+//                }
+//            }
+//        }
 
         stage ("Init") {
             steps {
