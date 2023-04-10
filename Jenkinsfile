@@ -53,18 +53,17 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('Init') {
             steps {
                 // Run the build command
-                bat 'npm install'
-                bat 'npm run build'
+                bat 'terraform init'
             }
         }
         
-        stage('Deploy') {
+        stage('Plan') {
             steps {
                 // Deploy the built code to the target server
-                bat 'xcopy /Y /S /I build\\* C:\\inetpub\\wwwroot\\'
+                bat 'terraform plan'
             }
         }
     }
