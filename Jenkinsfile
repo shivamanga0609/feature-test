@@ -41,39 +41,22 @@
 //    }
 //}
 
-
 pipeline {
-    agent any
-
-    tools {
-        terraform "terraform"
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/terraform-vm']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/shivamanga0609/feature-test']]])
+   agent any
+   tools {
+      terraform "terraform"
+   }
+   stages {
+      stage('Terraform Init') {
+         steps {
+            withTerraform {
+               terraform {
+                  version = "1.0.0"
+               }
+               init()
             }
-        }
-
-        stage('Init') {
-            steps {
-                sh 'terraform init'
-            }
-        }
-
-        stage('Plan') {
-            steps {
-                sh 'terraform plan'
-            }
-        }
-
-        stage('Apply') {
-            steps {
-                sh 'terraform apply'
-            }
-        }
-    }
+         }
+      }
+      // Add additional stages for apply, plan, etc.
+   }
 }
-
-
