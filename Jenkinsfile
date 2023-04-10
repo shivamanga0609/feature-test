@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-    tools {
-        terraform "Terraform"
-   }
+//    tools {
+//        terraform "Terraform"
+//   }
     options {
         ansiColor('xterm')
     }
