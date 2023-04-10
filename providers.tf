@@ -8,12 +8,12 @@ provider "azurerm" {
     }
     random = {
       source  = "hashicorp/random"
-      version = ">= 2.64.0"
+      version = ">= 3.0"
     }
   }
 }
-    features {
-        subscription_id = "211978a0-4bca-46a2-b47a-daa2d97ee3ce"
+    enviornment {
+        AZURE_SUBSCRIPTION_ID = "211978a0-4bca-46a2-b47a-daa2d97ee3ce"
 
     }   
 }
