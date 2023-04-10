@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    tools {
+    terraform "Terraform"
+   }
     options {
         ansiColor('xterm')
     }
@@ -7,7 +11,7 @@ pipeline {
     environment {
         GIT_URL = "https://github.com/shivamanga0609/feature-test"
     }
-
+    
     stages {
 
         stage ("Checkout") {
