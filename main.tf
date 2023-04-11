@@ -20,6 +20,12 @@ terraform {
       source  = "hashicorp/random"
       version = ">= 3.0"
     }
+    environment {
+      variables = {
+    ARM_SUBSCRIPTION_ID = "211978a0-4bca-46a2-b47a-daa2d97ee3ce"
+   }
+ }
+
   }
 }
 
