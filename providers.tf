@@ -6,9 +6,9 @@ provider "azurerm" {
              source  = "hashicorp/azurerm"
              version = "2.64.0"
     }
-    environment {
-         variables = {
-             AZURE_SUBSCRIPTION_ID = "211978a0-4bca-46a2-b47a-daa2d97ee3ce"
+#    environment {
+#         variables = {
+#             AZURE_SUBSCRIPTION_ID = "211978a0-4bca-46a2-b47a-daa2d97ee3ce"
    }
  }
     random = {
